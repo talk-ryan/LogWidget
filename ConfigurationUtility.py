@@ -1,8 +1,6 @@
 """This file will contain the main function and serve as the starting point for the application"""
 import os
-import zipfile
 import configparser
-import subprocess
 from datetime import datetime
 from datetime import date
 

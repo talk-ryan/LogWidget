@@ -2,17 +2,9 @@
 When this file is run as main, zipped logged files should be created and stored in C:\ZippedLogs"""
 import os
 import zipfile
-import configparser
-import time
-import paramiko
-from smb.SMBConnection import SMBConnection
-import tempfile
 import subprocess
 import ConfigurationUtility as Cu
 import sys
-import shutil
-from datetime import datetime
-from datetime import date
 
 
 def create_directory(path):
@@ -23,16 +15,17 @@ def create_directory(path):
     return
 
 
+# TODO remove hard coded file paths and put them in the config file
 def zip_logs(log_files):
     """Zips the log_files and stores them in the default location"""
-    zip_file = zipfile.ZipFile(r'c:\Test\Test2\UltimateTest2.zip', 'w')
+    zip_file = zipfile.ZipFile(r'c:\ZippedLogs\UltimateTest2.zip', 'w')
     for file in log_files:
         zip_file.write(file)
     zip_file.close()
     return 1
 
 
-# TODO Connect to the host and be able to run the get_log_files method
+# TODO remove hard coded file paths and put them in the config file
 def test_shutil():
     """Test method that Zips the logs from a remote server"""
     network_path = r'\\10.1.1.226'

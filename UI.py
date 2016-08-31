@@ -14,6 +14,7 @@ from kivy.uix.filechooser import FileChooserIconView
 Config.set('graphics', 'width', '200')
 Config.set('graphics', 'height', '200')
 
+
 class LogsWidget(Widget):
 
     def btn_press(self, instance):
@@ -25,6 +26,9 @@ class LogsWidget(Widget):
 
 
 class UIApp(App):
+    # TODO refactor to use Kivy Language
+    # TODO get a design machine to pick
+    # TODO design a way to grab a file from the widget
     def build(self):
         '''In this method we need to return the root widget and set up the widget hierarchy'''
         b = BoxLayout(orientation='vertical')
@@ -41,8 +45,6 @@ class UIApp(App):
         c.add_widget(l)
         c.add_widget(a)
         a.add_widget(t)
-
-
 
         file_view = FileChooserIconView(path='C:\ZippedLogs')
 

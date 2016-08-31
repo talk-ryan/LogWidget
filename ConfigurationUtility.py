@@ -9,6 +9,8 @@ CONFIG_FILE = 'logs.cfg'
 FILE_NAMES_OPTION = 'filenames'
 PATH_OPTION = 'path'
 DELIMITER = ','
+ZIPPED_LOGS_LOCATION_OPTION = 'ZIPPED_LOGS_LOCATION'
+DESTINATION_SECTION = 'Destination'
 
 
 # TODO Modify so this works on a server
@@ -72,6 +74,20 @@ def get_log_time():
     return appended_time
 
 
+# TODO Setup Zipped Log Location in config file
+# TODO Get Zipped Log Location from config file
+def get_zipped_log_location():
+    config = configparser.ConfigParser()
+    config.read(CONFIG_FILE)
+    if config.has_section(DESTINATION_SECTION):
+        a = 5
+    pass
+
+# TODO setup machine names and ip addresses in config files.
+# TODO return a dictionary or list of tuples
+def get_machine_and_ip_addresses():
+    pass
+# TODO Get Zipped Log Location from config file
 
 if __name__ == '__main__':
     print('get_log_time(): {0}'.format(get_log_time()))

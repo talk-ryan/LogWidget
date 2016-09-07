@@ -14,6 +14,7 @@ DESTINATION_SECTION = 'Destination'
 
 
 # TODO Modify so this works on a server
+# TODO Modify to write print statements to a log file
 def get_log_files(network_path):
     """Returns the file paths from the config file that exist"""
     log_files = []

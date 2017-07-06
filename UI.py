@@ -1,7 +1,7 @@
 import kivy
 kivy.require('1.9.1') # replace with your current kivy version !
 
-"""Disclaimer, this UI code is shitty and needs to be refactored a lot"""
+"""Disclaimer, this UI code is poor and needs to be refactored a lot"""
 
 from kivy.app import App
 from kivy.uix.widget import Widget

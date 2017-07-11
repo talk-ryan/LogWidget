@@ -30,8 +30,6 @@ class LogsWidget(Widget):
         print("It ran")
 
 
-class CheckBoxAndLabel(Widget):
-    
 
 class UIApp(App):
     # TODO refactor to use Kivy Language

@@ -1,7 +1,8 @@
 import kivy
 kivy.require('1.9.1') # replace with your current kivy version !
 
-"""Disclaimer, this UI code is poor and needs to be refactored a lot"""
+""" Run this script as the start of the application.  This will show a UI widget with check boxes that can be clicked.
+"""
 
 from kivy.app import App
 from kivy.uix.widget import Widget
@@ -51,7 +52,6 @@ class UIApp(App):
 
         # REFACTOR THIS!!!! self needs to be refactored to possibly include a declaration
         self.ip_address_input = TextInput(multiline=False)
-
         ip_address_label = Label(text='i.p. address: ')#, size_hint_y=None)
 
         # Configure ip address layer
@@ -60,9 +60,16 @@ class UIApp(App):
         ip_address_layer.add_widget(a) #ip_address_dropdown) #ip_address_dropdown)
         a.add_widget(self.ip_address_input)
 
-        # file_view = FileChooserIconView(path='C:\ZippedLogs')
+        log_check_boxes = self.initCheckBoxLayer()
 
-        # ----------------- NEED TO REFACTOR THIS INTO LABEL CHECKBOX CLASSES OR TEMPLATES
+        root.add_widget(ip_address_layer)
+        root.add_widget(log_check_boxes)
+        root.add_widget(log_btn)
+        # b.add_widget(file_view)
+        return root
+
+
+    def initCheckBoxLayer(self):
         # Configure Check Box Layer
         log_check_boxes = GridLayout(cols=3)
         cb1_horizontal = BoxLayout(orientation='horizontal')
@@ -116,13 +123,7 @@ class UIApp(App):
         log_check_boxes.add_widget(cb4_horizontal)
         log_check_boxes.add_widget(cb5_horizontal)
         log_check_boxes.add_widget(cb6_horizontal)
-
-
-        root.add_widget(ip_address_layer)
-        root.add_widget(log_check_boxes)
-        root.add_widget(log_btn)
-        # b.add_widget(file_view)
-        return root
+        return log_check_boxes
 
     # TODO remove btn_press function outside of this class
     # TODO get the checked check boxes

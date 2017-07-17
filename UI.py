@@ -16,6 +16,7 @@ from kivy.config import Config
 from kivy.uix.checkbox import CheckBox
 import ConfigurationUtility as Cu
 import LogMain as Lm
+import LogCheckBox as LCB
 
 Config.set('graphics', 'width', '200')
 Config.set('graphics', 'height', '200')
@@ -62,58 +63,18 @@ class UIApp(App):
 
         log_check_boxes = self.initCheckBoxLayer()
 
+        for
+
         root.add_widget(ip_address_layer)
         root.add_widget(log_check_boxes)
         root.add_widget(log_btn)
         # b.add_widget(file_view)
         return root
 
-
-    def initCheckBoxLayer(self):
+    def initCheckBoxLayer(self, num_cols=3, orientation='horizontal'):
         # Configure Check Box Layer
-        log_check_boxes = GridLayout(cols=3)
-        cb1_horizontal = BoxLayout(orientation='horizontal')
-        self.cb1_Label = Label(text='BRE:')
-        self.cb1 = CheckBox()
-        cb1_horizontal.add_widget(self.cb1_Label)
-        cb1_horizontal.add_widget(self.cb1)
+        log_check_boxes = GridLayout(cols=num_cols)
 
-        cb2_horizontal = BoxLayout(orientation='horizontal')
-        self.cb2_Label = Label(text='WEB:')
-        self.cb2 = CheckBox()
-        cb2_horizontal.add_widget(self.cb2_Label)
-        cb2_horizontal.add_widget(self.cb2)
-
-        cb3_horizontal = BoxLayout(orientation='horizontal')
-        self.cb3_Label = Label(text='NET:')
-        self.cb3 = CheckBox()
-        cb3_horizontal.add_widget(self.cb3_Label)
-        cb3_horizontal.add_widget(self.cb3)
-
-        cb4_horizontal = BoxLayout(orientation='horizontal')
-        self.cb4_Label = Label(text='OFF:')
-        self.cb4 = CheckBox()
-        cb4_horizontal.add_widget(self.cb4_Label)
-        cb4_horizontal.add_widget(self.cb4)
-
-        cb5_horizontal = BoxLayout(orientation='horizontal')
-        self.cb5_Label = Label(text='DAL:')
-        self.cb5 = CheckBox()
-        cb5_horizontal.add_widget(self.cb5_Label)
-        cb5_horizontal.add_widget(self.cb5)
-
-        cb6_horizontal = BoxLayout(orientation='horizontal')
-        self.cb6_Label = Label(text='WIN:')
-        self.cb6 = CheckBox()
-        cb6_horizontal.add_widget(self.cb6_Label)
-        cb6_horizontal.add_widget(self.cb6)
-
-        self.cb1.bind(active=self.on_checkbox_active)
-        self.cb2.bind(active=self.on_checkbox_active)
-        self.cb3.bind(active=self.on_checkbox_active)
-        self.cb4.bind(active=self.on_checkbox_active)
-        self.cb5.bind(active=self.on_checkbox_active)
-        self.cb6.bind(active=self.on_checkbox_active)
         # ----------------- NEED TO REFACTOR THIS INTO LABEL CHECKBOX CLASSES OR TEMPLATES
 
 

@@ -63,27 +63,19 @@ class UIApp(App):
 
         log_check_boxes = self.initCheckBoxLayer()
 
-        for
-
         root.add_widget(ip_address_layer)
         root.add_widget(log_check_boxes)
         root.add_widget(log_btn)
         # b.add_widget(file_view)
         return root
 
+# TODO Refactor to use KIVY language.  This introduced a bug such that the log check boxes do not show up.
     def initCheckBoxLayer(self, num_cols=3, orientation='horizontal'):
         # Configure Check Box Layer
         log_check_boxes = GridLayout(cols=num_cols)
-
-        # ----------------- NEED TO REFACTOR THIS INTO LABEL CHECKBOX CLASSES OR TEMPLATES
-
-
-        log_check_boxes.add_widget(cb1_horizontal)
-        log_check_boxes.add_widget(cb2_horizontal)
-        log_check_boxes.add_widget(cb3_horizontal)
-        log_check_boxes.add_widget(cb4_horizontal)
-        log_check_boxes.add_widget(cb5_horizontal)
-        log_check_boxes.add_widget(cb6_horizontal)
+        for section in Cu.get_sections_of_log_files():
+            wid = LCB.LogCheckBox(section)
+            log_check_boxes.add_widget(wid)
         return log_check_boxes
 
     # TODO remove btn_press function outside of this class

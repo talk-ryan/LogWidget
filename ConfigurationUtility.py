@@ -15,7 +15,7 @@ CREDENTIALS_SECTION = 'Credentials'
 USER_OPTION = 'user'
 PASSWORD_OPTION = 'password'
 
-
+# TODO refactor into a class
 # TODO Modify to write print statements to a log file
 def get_all_log_files(network_path):
     """Returns all file paths from the config file that exist"""
@@ -55,6 +55,20 @@ def get_log_files_from_sections(network_path, sections):
                     network_path, section, config.get(section, 'path')))
     print(log_files)
     return log_files
+
+
+def get_sections_of_log_files():
+    config = configparser.ConfigParser()
+    config.read(CONFIG_FILE)
+    return [section for section in config.sections() if isFileLabel(section)]
+
+
+def isFileLabel(section):
+    config = configparser.ConfigParser()
+    config.read(CONFIG_FILE)
+    return config.has_option(section, PATH_OPTION) and config.has_option(section, FILE_NAMES_OPTION)
+
+
 
 def get_file_names(section, append_to_name=''):
     """Returns the file names to search for in each path.  Also provides the option to append to file names.

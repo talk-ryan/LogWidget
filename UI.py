@@ -1,7 +1,8 @@
 import kivy
 kivy.require('1.9.1') # replace with your current kivy version !
 
-"""Disclaimer, this UI code is poor and needs to be refactored a lot"""
+""" Run this script as the start of the application.  This will show a UI widget with check boxes that can be clicked.
+"""
 
 from kivy.app import App
 from kivy.uix.widget import Widget
@@ -15,6 +16,7 @@ from kivy.config import Config
 from kivy.uix.checkbox import CheckBox
 import ConfigurationUtility as Cu
 import LogMain as Lm
+import LogCheckBox as LCB
 
 Config.set('graphics', 'width', '200')
 Config.set('graphics', 'height', '200')
@@ -37,7 +39,7 @@ class UIApp(App):
     # TODO design a way to grab a file from the widget
     # TODO REFACTOR!!!!!!
     # TODO Create a way to indicate success in log zippage
-    checked_boxes = []
+
     def build(self):
         '''In this method we need to return the root widget and set up the widget hierarchy'''
         root = BoxLayout(orientation='vertical')
@@ -51,7 +53,6 @@ class UIApp(App):
 
         # REFACTOR THIS!!!! self needs to be refactored to possibly include a declaration
         self.ip_address_input = TextInput(multiline=False)
-
         ip_address_label = Label(text='i.p. address: ')#, size_hint_y=None)
 
         # Configure ip address layer
@@ -60,69 +61,22 @@ class UIApp(App):
         ip_address_layer.add_widget(a) #ip_address_dropdown) #ip_address_dropdown)
         a.add_widget(self.ip_address_input)
 
-        # file_view = FileChooserIconView(path='C:\ZippedLogs')
-
-        # ----------------- NEED TO REFACTOR THIS INTO LABEL CHECKBOX CLASSES OR TEMPLATES
-        # Configure Check Box Layer
-        log_check_boxes = GridLayout(cols=3)
-        cb1_horizontal = BoxLayout(orientation='horizontal')
-        self.cb1_Label = Label(text='BRE:')
-        self.cb1 = CheckBox()
-        cb1_horizontal.add_widget(self.cb1_Label)
-        cb1_horizontal.add_widget(self.cb1)
-
-        cb2_horizontal = BoxLayout(orientation='horizontal')
-        self.cb2_Label = Label(text='WEB:')
-        self.cb2 = CheckBox()
-        cb2_horizontal.add_widget(self.cb2_Label)
-        cb2_horizontal.add_widget(self.cb2)
-
-        cb3_horizontal = BoxLayout(orientation='horizontal')
-        self.cb3_Label = Label(text='NET:')
-        self.cb3 = CheckBox()
-        cb3_horizontal.add_widget(self.cb3_Label)
-        cb3_horizontal.add_widget(self.cb3)
-
-        cb4_horizontal = BoxLayout(orientation='horizontal')
-        self.cb4_Label = Label(text='OFF:')
-        self.cb4 = CheckBox()
-        cb4_horizontal.add_widget(self.cb4_Label)
-        cb4_horizontal.add_widget(self.cb4)
-
-        cb5_horizontal = BoxLayout(orientation='horizontal')
-        self.cb5_Label = Label(text='DAL:')
-        self.cb5 = CheckBox()
-        cb5_horizontal.add_widget(self.cb5_Label)
-        cb5_horizontal.add_widget(self.cb5)
-
-        cb6_horizontal = BoxLayout(orientation='horizontal')
-        self.cb6_Label = Label(text='WIN:')
-        self.cb6 = CheckBox()
-        cb6_horizontal.add_widget(self.cb6_Label)
-        cb6_horizontal.add_widget(self.cb6)
-
-        self.cb1.bind(active=self.on_checkbox_active)
-        self.cb2.bind(active=self.on_checkbox_active)
-        self.cb3.bind(active=self.on_checkbox_active)
-        self.cb4.bind(active=self.on_checkbox_active)
-        self.cb5.bind(active=self.on_checkbox_active)
-        self.cb6.bind(active=self.on_checkbox_active)
-        # ----------------- NEED TO REFACTOR THIS INTO LABEL CHECKBOX CLASSES OR TEMPLATES
-
-
-        log_check_boxes.add_widget(cb1_horizontal)
-        log_check_boxes.add_widget(cb2_horizontal)
-        log_check_boxes.add_widget(cb3_horizontal)
-        log_check_boxes.add_widget(cb4_horizontal)
-        log_check_boxes.add_widget(cb5_horizontal)
-        log_check_boxes.add_widget(cb6_horizontal)
-
+        log_check_boxes = self.initCheckBoxLayer()
 
         root.add_widget(ip_address_layer)
         root.add_widget(log_check_boxes)
         root.add_widget(log_btn)
         # b.add_widget(file_view)
         return root
+
+    def initCheckBoxLayer(self, num_cols=3, orientation='horizontal'):
+        # Configure Check Box Layer
+        log_check_boxes = GridLayout(cols=num_cols)
+        for section in Cu.get_sections_of_log_files():
+            wid = LCB.LogCheckBox(section)
+            wid.bindActiveFunction(self.on_checkbox_active)
+            log_check_boxes.add_widget(wid)
+        return log_check_boxes
 
     # TODO remove btn_press function outside of this class
     # TODO get the checked check boxes

@@ -39,7 +39,7 @@ class UIApp(App):
     # TODO design a way to grab a file from the widget
     # TODO REFACTOR!!!!!!
     # TODO Create a way to indicate success in log zippage
-    checked_boxes = []
+
     def build(self):
         '''In this method we need to return the root widget and set up the widget hierarchy'''
         root = BoxLayout(orientation='vertical')
@@ -69,12 +69,12 @@ class UIApp(App):
         # b.add_widget(file_view)
         return root
 
-# TODO Refactor to use KIVY language.  This introduced a bug such that the log check boxes do not show up.
     def initCheckBoxLayer(self, num_cols=3, orientation='horizontal'):
         # Configure Check Box Layer
         log_check_boxes = GridLayout(cols=num_cols)
         for section in Cu.get_sections_of_log_files():
             wid = LCB.LogCheckBox(section)
+            wid.bindActiveFunction(self.on_checkbox_active)
             log_check_boxes.add_widget(wid)
         return log_check_boxes
 

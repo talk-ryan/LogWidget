@@ -13,14 +13,13 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.config import Config
-from kivy.uix.checkbox import CheckBox
 import ConfigurationUtility as Cu
 import LogMain as Lm
 import LogCheckBox as LCB
 
 Config.set('graphics', 'width', '200')
 Config.set('graphics', 'height', '200')
-
+LOGCHECKBOX = 'logcheckbox'
 
 class LogsWidget(Widget):
 
@@ -34,11 +33,12 @@ class LogsWidget(Widget):
 
 
 class UIApp(App):
-    # TODO refactor to use Kivy Language
     # TODO get a design machine to pick
     # TODO design a way to grab a file from the widget
-    # TODO REFACTOR!!!!!!
     # TODO Create a way to indicate success in log zippage
+
+    # Holds the logs that we need to pass into the backend
+    log_checked_boxes = set()
 
     def build(self):
         '''In this method we need to return the root widget and set up the widget hierarchy'''
@@ -69,12 +69,12 @@ class UIApp(App):
         # b.add_widget(file_view)
         return root
 
-    def initCheckBoxLayer(self, num_cols=3, orientation='horizontal'):
+    def initCheckBoxLayer(self, num_cols=3):
         # Configure Check Box Layer
         log_check_boxes = GridLayout(cols=num_cols)
         for section in Cu.get_sections_of_log_files():
             wid = LCB.LogCheckBox(section)
-            wid.bindActiveFunction(self.on_checkbox_active)
+            wid.bindActiveFunction(self.on_log_checkbox_active)
             log_check_boxes.add_widget(wid)
         return log_check_boxes
 
@@ -91,12 +91,13 @@ class UIApp(App):
         code = Lm.connect_and_process('\\\\' + self.ip_address_input.text, user, password)
         pass
 
-    def on_checkbox_active(self, checkbox, value):
+    def on_log_checkbox_active(self, checkbox, value, **kwargs):
+        print(kwargs[LOGCHECKBOX])
+        log_cbx = kwargs[LOGCHECKBOX]
         if value:
-            print('The checkbox', checkbox, 'is active')
-            self.checked_boxes.append(checkbox)
+            self.log_checked_boxes.add(log_cbx)
         else:
-            print('The checkbox', checkbox, 'is inactive')
+            self.log_checked_boxes.remove(log_cbx)
 
 if __name__ == '__main__':
     UIApp().run()
